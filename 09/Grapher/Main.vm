@@ -1,0 +1,39 @@
+function Main.main 2
+call Board.new 0
+pop local 0
+push constant 3
+call Array.new 1
+pop local 1
+push constant 0
+push local 1
+add
+push constant 0
+not
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push local 1
+add
+push constant 0
+not
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push local 1
+add
+push constant 0
+not
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push local 1
+call Board.startCalculations 2
+pop temp 0
+push constant 0
+return

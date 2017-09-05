@@ -1,0 +1,260 @@
+/**
+* Stores the coefficients of the equation as an Array (from quadratic to constant)
+* calculates the x_1 and x_2
+* calculates the shape of the graph (concave of convex)
+* calculates the minimum or maximum (depending on the shape)
+*/
+
+class Equation {
+    field int ca, cb, cc;
+    field Array solutions; // Array of length 0, 1 or 2
+    field int extreme; // maximum or minimum points
+    field String shape; // is the function concave or convex?
+    field int shapeCode; // 0: linear, 1: concave, 2: convex?
+    field String extremesText; // description of function's extreme
+    field int delta; // function's delta
+    field int solutionCount;
+
+    constructor Equation new(int a, int b, int c) {
+
+        let ca = a;
+        let cb = b;
+        let cc = c;
+
+        do checkShape();
+
+        do calculateDelta();
+
+        do calculateSolutions();
+
+        return this;
+    }
+
+    /**
+    * Prints the heading for given coefficients;
+    */
+
+    method void printHeading() {
+
+        var String a, b, c;
+
+        let a = "dummy"; // for some reason I was getting errors when I didn't initialize the string to some dummy value
+        let b = "dummy";
+        let c = "dummy";
+
+        do a.setInt(ca);
+        do b.setInt(cb);
+        do c.setInt(cc);
+
+        do Output.printString("Equation: ");
+        do Output.printString(a);
+        do Output.printString("*x^2 + ");
+        do Output.printString(b);
+        do Output.printString("*x + ");
+        do Output.printString(c);
+        do Output.moveCursor(1, 0);
+        do Output.printString("The function is ");
+        do Output.printString(shape);
+        do Output.printString(".");
+        do Output.moveCursor(2, 0);
+        do Output.printString("It has ");
+        do Output.printString(extremesText);
+        do Output.printString(".");
+        do printSolutions(4);
+
+
+        return;
+    }
+
+    method void printSolutions(int lineNumber) {
+
+        var String sol1, sol2;
+
+        let sol1 = "dummy";
+        let sol2 = "dummy";
+
+        do Output.moveCursor(lineNumber, 0);
+
+        if (solutionCount = 0) {
+            do Output.printString("Solutions: none");
+        } else {
+            if (solutionCount = 1) {
+                do sol1.setInt(solutions[0]);
+                do Output.printString("Solutions: x_0 = ");
+                do Output.printString(sol1);
+            } else {
+
+                do sol1.setInt(solutions[0]);
+                do sol2.setInt(solutions[1]);
+                do Output.printString("Solutions:");
+                do Output.moveCursor(lineNumber + 1, 0);
+                do Output.printString("x_1 = ");
+                do Output.printString(sol1);       
+                do Output.printString(", x_2 = ");       
+                do Output.printString(sol2);            
+            }
+        }
+
+        do sol1.dispose();
+        do sol2.dispose();
+        
+        return;
+    }
+
+    /**
+    * Prints the graph board;
+    */
+
+    method void printGraph() {
+
+        var int offset; // offset of the graph to the right
+
+        let offset = -40;
+
+        do Screen.drawLine(255 + offset,20,255 + offset,236);
+        do Screen.drawLine(245 + offset,30,255 + offset,20);
+        do Screen.drawLine(265 + offset,30,255 + offset,20);
+
+        do Screen.drawLine(100 + offset,128,410 + offset,128);
+        do Screen.drawLine(400 + offset,118,410 + offset,128);
+        do Screen.drawLine(400 + offset,138,410 + offset,128);
+        return;
+    }
+
+    /**
+    * Prints the legend;
+    */
+
+    method void printLegend() {
+
+        var int boxWidth, boxHeight, legendTextCol;
+
+        let boxWidth = 150;
+        let boxHeight = 100;
+        let legendTextCol = 46;
+
+        do Screen.drawLine(511 - boxWidth, 0, 511 - boxWidth, boxHeight);
+        do Screen.drawLine(511 - boxWidth , boxHeight, 511, boxHeight);
+
+        do Output.moveCursor(0, legendTextCol);
+        do Output.printString("Press:");
+        do Output.moveCursor(2, legendTextCol);
+        do Output.printString("q = quit");
+        do Output.moveCursor(3, legendTextCol);
+        do Output.printString("a = change a");
+        do Output.moveCursor(4, legendTextCol);
+        do Output.printString("b = change b");
+        do Output.moveCursor(5, legendTextCol);
+        do Output.printString("c = change c");
+        do Output.moveCursor(6, legendTextCol);
+        do Output.printString("x = restart");
+
+        return;
+    }
+
+    /**
+    * Check whether the function is convex or concave
+    */
+
+    method void checkShape() {
+        if (ca < 0) {
+            let shape = "concave";
+            let shapeCode = 1;
+        } else {
+            if (ca = 0) {
+                let shape = "linear";
+                let shapeCode = 0;
+            } else {
+                let shape = "convex";
+                let shapeCode = 2;
+            }
+        }
+
+        return;
+    }
+
+    /**
+    * Calculate extremes
+    */
+
+    method void calculateExtremes() {
+
+        if (shapeCode = 0) {
+            let extremesText = "no extremes";
+        } else {
+            if (shapeCode = 1) {
+                let extremesText = "a maximum";
+            } else {
+                let extremesText = "a minimum";
+            }
+        }
+
+        return;
+
+    }
+    
+    /**
+    * Calculate delta
+    */
+
+    method void calculateDelta() {
+
+        let delta = (cb*cb) - (4*ca*cc);
+        return;
+    }
+
+    /**
+    * Calculate solutions
+    */
+
+    method void calculateSolutions() {
+
+        let solutionCount = 0;
+
+        if(ca = 0) {
+            if(cb = 0) {
+                return;
+            }
+            let solutions = Array.new(1);
+            let solutions[0] = (-cc/cb);
+            let solutionCount = 1;
+            return;
+        }
+
+        if(delta > 0) {
+            let solutions = Array.new(2);
+            let solutions[0] = (-cb-Math.sqrt(delta))/(2*ca);
+            let solutions[1] = (-cb+Math.sqrt(delta))/(2*ca);
+            let solutionCount = 2;
+        } 
+        if(delta = 0 ) {
+            let solutions = Array.new(1);
+            let solutions[0] = (-cb)/(2*ca);
+            let solutionCount = 1;
+        }
+        return;
+    }
+
+    method void changeAComponent() {
+        return;
+    }
+
+    method void changeBComponent() {
+        return;
+    }
+
+    method void changeCComponent() {
+        return;
+    }
+
+    /** 
+    * Destroy the object
+    */
+
+    method void destroy() {
+        
+        do Memory.deAlloc(this);
+
+        return;
+    }
+}

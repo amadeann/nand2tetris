@@ -1,0 +1,25 @@
+#! /usr/bin/env php
+
+<?php
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+
+require 'vendor/autoload.php';
+
+require './app.php';
+
+$app = new Application('VM to Hack Compiler', '1.0');
+
+$app->register('compile')
+	->setDescription('Compile a specified file or all files in a given directory')
+	->addArgument('directory', InputArgument::REQUIRED, 'File or a directory')
+	->setCode( function(InputInterface $input, OutputInterface $output) {
+		$directory = $input->getArgument('directory');
+		compile($directory);
+		// $output->writeln('<comment>Hello, ' . $name . '</comment>');
+	});
+
+$app->run();

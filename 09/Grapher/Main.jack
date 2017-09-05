@@ -1,0 +1,34 @@
+/**
+* Get's a quadratic equation as an input from the user and prints the graph for it to the screen
+* Specify the quadratic part
+* Specify the linear part
+* Specify the constant part
+* Calculate the points in which the parabole crosses the 0 axis
+* Calculate the max(y) or min(y)
+* draw the line
+* print the equation to the screen (heading) along with the solutions
+* print the instructions to the screen (q to quit, s to modify quadratic, l to modify linear, c to modify cosntant)
+*/
+
+class Main {
+
+    function void main() {
+
+        var Board board;
+
+        var Array setCoefficients;
+
+        let board = Board.new();
+
+        let setCoefficients = Array.new(3);
+
+        let setCoefficients[0] = true;
+        let setCoefficients[1] = true;
+        let setCoefficients[2] = true;
+
+        do board.startCalculations(setCoefficients);
+
+        return;
+    }
+
+}

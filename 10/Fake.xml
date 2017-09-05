@@ -1,0 +1,26 @@
+<class>
+<identifier>Main</identifier>
+<symbol>{</symbol>
+<keyword>static</keyword>
+<keyword>int</keyword>
+<identifier>bs</identifier>
+<symbol>,</symbol>
+<identifier>fick</identifier>
+<symbol>,</symbol>
+<identifier>mick</identifier>
+<symbol>;</symbol>
+<keyword>field</keyword>
+<identifier>Ornal</identifier>
+<identifier>paul</identifier>
+<symbol>,</symbol>
+<identifier>korad</identifier>
+<symbol>;</symbol>
+<keyword>field</keyword>
+<keyword>boolean</keyword>
+<identifier>pick</identifier>
+<symbol>,</symbol>
+<identifier>trick</identifier>
+<symbol>;</symbol>
+<symbol>}</symbol>
+line 168 
+</class>

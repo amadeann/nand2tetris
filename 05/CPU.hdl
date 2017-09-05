@@ -1,0 +1,112 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/05/CPU.hdl
+
+/**
+ * The Hack CPU (Central Processing unit), consisting of an ALU,
+ * two registers named A and D, and a program counter named PC.
+ * The CPU is designed to fetch and execute instructions written in 
+ * the Hack machine language. In particular, functions as follows:
+ * Executes the inputted instruction according to the Hack machine 
+ * language specification. The D and A in the language specification
+ * refer to CPU-resident registers, while M refers to the external
+ * memory location addressed by A, i.e. to Memory[A]. The inM input 
+ * holds the value of this location. If the current instruction needs 
+ * to write a value to M, the value is placed in outM, the address 
+ * of the target location is placed in the addressM output, and the 
+ * writeM control bit is asserted. (When writeM==0, any value may 
+ * appear in outM). The outM and writeM outputs are combinational: 
+ * they are affected instantaneously by the execution of the current 
+ * instruction. The addressM and pc outputs are clocked: although they 
+ * are affected by the execution of the current instruction, they commit 
+ * to their new values only in the next time step. If reset==1 then the 
+ * CPU jumps to address 0 (i.e. pc is set to 0 in next time step) rather 
+ * than to the address resulting from executing the current instruction. 
+ */
+
+ /*
+ ** c: [i]xx[a][cccccc][ddd][jjj]
+ ** [a]: operate on A register input or M register input (see table from chapter 4)
+ ** [cccccc]: ALU calculations
+ ** [ddd]: flags. store in A,D registers and M memory respectively (see chapter 4)
+ ** [jjj]: jump instructions (see chapter 4)
+ */
+
+CHIP CPU {
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to re-start the current
+                         // program (reset==1) or continue executing
+                         // the current program (reset==0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // address of next instruction
+
+    PARTS:
+    /*
+    ** Select a or c instruction
+    ** 0: a
+    ** 1: c
+    */
+
+    Mux16(a=instruction ,b=t1outM ,sel=instruction[15] ,out=selectedInstruction ); // not sure whether I should choose instruction[0..15] or instruction[0..14]
+
+    /*
+    ** Loading the data from register?
+    */
+
+    // Helper: not instruction[15];
+    Not(in=instruction[15],out=nota);
+    Or(a=nota,b=instruction[5],out=loada);
+
+    ARegister(in=selectedInstruction ,load=loada ,out[0..14]=addressM, out[0..14]=t1addressM ); 
+
+    /*
+    ** Choose the operation? Do we act on the instruction address or on the input from the previous operation
+    */
+
+    Mux16(a[0..14]=t1addressM, a[15]=false ,b=inM ,sel=instruction[12] ,out=aluIn ); // random gues with that a[15]=false
+
+    /*
+    ** ALU
+    */
+
+    ALU(x=dRegOut ,y=aluIn ,zx=instruction[11] ,nx=instruction[10] ,zy=instruction[9] ,ny=instruction[8] ,f=instruction[7] ,no=instruction[6] ,out=outM, out=t1outM ,zr=zr ,ng=ng );
+    Or(a=zr,b=ng,out=tmpPs); 
+    Not(in=tmpPs,out=ps); // is positive?;
+
+    // should I jump?
+
+    And(a=ng,b=instruction[2], out=cond1);
+    And(a=zr,b=instruction[1], out=cond2);
+    And(a=ps,b=instruction[0], out=cond3);
+
+    Or8Way(in[0]=cond1,in[1]=cond2,in[2]=cond3,in[3..7]=false,out=jmpcandidate ); 
+    And(a=jmpcandidate,b=instruction[15],out=jmp);
+
+    /*
+    ** D Register
+    */
+
+    And(a=instruction[4],b=instruction[15],out=loadd);
+
+    // DRegister(in=t1outM ,load=instruction[4] ,out=dRegOut );
+    DRegister(in=t1outM ,load=loadd ,out=dRegOut );
+
+    /*
+    ** Storing to memory
+    */         
+
+    And(a=instruction[3],b=instruction[15],out=writeM);
+
+
+    /*
+    ** Program counter
+    */
+
+    PC(in[0..14]=t1addressM ,load=jmp ,inc=true ,reset=reset ,out[0..14]=pc, out[15]=false ); // random guess with out[15]
+}

@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+
+<?php
+
+// application.php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+
+$app = new Application('Jack Compiler - Analyzer Module', '1.0');
+
+$app->register('tokenize')
+    ->addArgument('file', InputArgument::REQUIRED, 'File or a directory')
+    ->setCode( function(InputInterface $input, OutputInterface $output) {
+        $file = $input->getArgument('file');
+        $test_output_message = (new App\JackAnalyzer())->tokenize($file);
+        $output->writeln($test_output_message);
+    });;
+    
+    $app->register('compile')
+    ->addArgument('file', InputArgument::REQUIRED, 'File or a directory')
+    ->setCode( function(InputInterface $input, OutputInterface $output) {
+        $file = $input->getArgument('file');
+        $test_output_message = (new App\JackAnalyzer())->compile($file);
+        $output->writeln($test_output_message);
+    });;
+
+$app->run();

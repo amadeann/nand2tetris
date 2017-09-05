@@ -1,0 +1,159 @@
+/**
+* Draws up the board and enters the infinite loop waiting for the input from user
+*/
+
+class Board {
+
+    field Equation equation;
+
+    constructor Board new() {
+        return this;
+    }
+
+    method void startCalculations(Array setCoefficient) {
+        
+        var Array coefficients;
+        var int coefficientCount; 
+        var int i;
+
+        do Sys.wait(200);
+
+        do Output.moveCursor(0, 0);
+        do Screen.clearScreen();
+
+        let coefficientCount = 3;
+        let coefficients = Array.new(coefficientCount);
+        let i = 0;
+
+        if(setCoefficient[0]) {
+            let coefficients[0] = changeAComponent();
+        }
+
+        if(setCoefficient[1]) {
+            let coefficients[1] = changeBComponent();
+        }
+
+        if(setCoefficient[2]) {
+            let coefficients[2] = changeCComponent();
+        }
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0, 0);
+
+        let equation = Equation.new( coefficients[0], coefficients[1], coefficients[2]);
+
+        do equation.calculateExtremes();
+        
+        do equation.printHeading();
+
+        do equation.printGraph();
+
+        do equation.printLegend();
+
+        do runLoop();
+
+        do equation.destroy();
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0, 0);
+
+        return;
+    }
+
+    method void runLoop() {
+
+        var char key;  // the key currently pressed by the user
+        var boolean exit;
+        var Array setCoefficients;
+
+        let setCoefficients = Array.new(3);
+
+        let setCoefficients[0] = true;
+        let setCoefficients[1] = true;
+        let setCoefficients[2] = true;
+
+        let exit = false;
+      
+        while (~exit) {
+
+            let key = Keyboard.keyPressed();
+
+            if (key = 81) { let exit = true; }     // q key
+            if (key = 65) {
+                let setCoefficients[1] = false;
+                let setCoefficients[2] = false;
+                do equation.destroy();
+                do startCalculations(setCoefficients); 
+            } // a key
+            if (key = 66) {
+                let setCoefficients[0] = false;
+                let setCoefficients[2] = false;
+                do equation.destroy();
+                do startCalculations(setCoefficients); 
+            } // b key
+            if (key = 67) {
+                let setCoefficients[0] = false;
+                let setCoefficients[1] = false;
+                do equation.destroy();
+                do startCalculations(setCoefficients); 
+            }   // c key
+            if (key = 88) { 
+                do equation.destroy();
+                do startCalculations(setCoefficients); 
+            }   // x key
+
+        }
+
+        return;
+    }
+
+    /**
+    * set the A component of the equation
+    */
+
+    method int changeAComponent() {
+
+        var int component;
+
+        let component = Keyboard.readInt("What is the quadratic component? (a*x^2) ");
+
+        return component;
+    }
+
+    /**
+    * set the B component of the equation
+    */
+
+    method int changeBComponent() {
+        
+        var int component;
+
+        let component = Keyboard.readInt("What is the linear component? (b*x) ");
+
+        return component;
+    }
+
+    /**
+    * set the C component of the equation
+    */
+
+    method int changeCComponent() {
+        
+        var int component;
+
+        let component = Keyboard.readInt("What is the constant component? (c) ");
+
+        return component;
+    }
+
+    /** 
+    * Destroy the object
+    */
+
+    method void destroy() {
+        
+        do Memory.deAlloc(this);
+
+        return;
+    }
+}
