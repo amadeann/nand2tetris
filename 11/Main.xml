@@ -2,6 +2,12 @@
     <keyword>class</keyword>
     <identifierClassDefined>Main</identifierClassDefined>
     <symbol>{</symbol>
+    <classVarDec>
+        <keyword>static</keyword>
+        <keyword>boolean</keyword>
+        <identifierStatic0Defined>test</identifierStatic0Defined>
+        <symbol>;</symbol>
+    </classVarDec>
     <subroutineDec>
         <keyword>function</keyword>
         <keyword>void</keyword>
@@ -14,90 +20,95 @@
             <symbol>{</symbol>
             <varDec>
                 <keyword>var</keyword>
-                <identifier>Array</identifier>
-                <identifierVar0Defined>a</identifierVar0Defined>
-                <symbol>;</symbol>
-            </varDec>
-            <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifierVar1Defined>length</identifierVar1Defined>
-                <symbol>;</symbol>
-            </varDec>
-            <varDec>
-                <keyword>var</keyword>
-                <keyword>int</keyword>
-                <identifierVar2Defined>i</identifierVar2Defined>
-                <symbol>,</symbol>
-                <identifierVar3Defined>sum</identifierVar3Defined>
+                <identifier>SquareGame</identifier>
+                <identifierVar0Defined>game</identifierVar0Defined>
                 <symbol>;</symbol>
             </varDec>
             <statements>
                 <letStatement>
                     <keyword>let</keyword>
-                    <identifierVar1Used>length</identifierVar1Used>
+                    <identifierVar0Used>game</identifierVar0Used>
                     <symbol>=</symbol>
                     <expression>
                         <term>
-                            <identifierClassUsed>Keyboard</identifierClassUsed>
-                            <symbol>.</symbol>
-                            <identifierSubroutineUsed>readInt</identifierSubroutineUsed>
-                            <symbol>(</symbol>
-                            <expressionList>
-                                <expression>
-                                    <term>
-                                        <stringConstant>HOW MANY NUMBERS? </stringConstant>
-                                    </term>
-                                </expression>
-                            </expressionList>
-                            <symbol>)</symbol>
-                        </term>
-                    </expression>
-                    <symbol>;</symbol>
-                </letStatement>
-                <letStatement>
-                    <keyword>let</keyword>
-                    <identifierVar0Used>a</identifierVar0Used>
-                    <symbol>=</symbol>
-                    <expression>
-                        <term>
-                            <identifierClassUsed>Array</identifierClassUsed>
+                            <identifierClassUsed>SquareGame</identifierClassUsed>
                             <symbol>.</symbol>
                             <identifierSubroutineUsed>new</identifierSubroutineUsed>
                             <symbol>(</symbol>
                             <expressionList>
-                                <expression>
-                                    <term>
-                                        <identifierVar1Used>length</identifierVar1Used>
-                                    </term>
-                                </expression>
                             </expressionList>
                             <symbol>)</symbol>
                         </term>
                     </expression>
                     <symbol>;</symbol>
                 </letStatement>
-                <letStatement>
-                    <keyword>let</keyword>
-                    <identifierVar2Used>i</identifierVar2Used>
-                    <symbol>=</symbol>
-                    <expression>
-                        <term>
-                            <integerConstant>0</integerConstant>
-                        </term>
-                    </expression>
+                <doStatement>
+                    <keyword>do</keyword>
+                    <identifierVar0Used>game</identifierVar0Used>
+                    <symbol>.</symbol>
+                    <identifierSubroutineUsed>run</identifierSubroutineUsed>
+                    <symbol>(</symbol>
+                    <expressionList>
+                    </expressionList>
+                    <symbol>)</symbol>
                     <symbol>;</symbol>
-                </letStatement>
-                <whileStatement>
-                    <keyword>while</keyword>
+                </doStatement>
+                <doStatement>
+                    <keyword>do</keyword>
+                    <identifierVar0Used>game</identifierVar0Used>
+                    <symbol>.</symbol>
+                    <identifierSubroutineUsed>dispose</identifierSubroutineUsed>
+                    <symbol>(</symbol>
+                    <expressionList>
+                    </expressionList>
+                    <symbol>)</symbol>
+                    <symbol>;</symbol>
+                </doStatement>
+                <returnStatement>
+                    <keyword>return</keyword>
+                    <symbol>;</symbol>
+                </returnStatement>
+            </statements>
+            <symbol>}</symbol>
+        </subroutineBody>
+    </subroutineDec>
+    <subroutineDec>
+        <keyword>function</keyword>
+        <keyword>void</keyword>
+        <identifierSubroutineDefined>test</identifierSubroutineDefined>
+        <symbol>(</symbol>
+        <parameterList>
+        </parameterList>
+        <symbol>)</symbol>
+        <subroutineBody>
+            <symbol>{</symbol>
+            <varDec>
+                <keyword>var</keyword>
+                <keyword>int</keyword>
+                <identifierVar0Defined>i</identifierVar0Defined>
+                <symbol>,</symbol>
+                <identifierVar1Defined>j</identifierVar1Defined>
+                <symbol>;</symbol>
+            </varDec>
+            <varDec>
+                <keyword>var</keyword>
+                <identifier>String</identifier>
+                <identifierVar2Defined>s</identifierVar2Defined>
+                <symbol>;</symbol>
+            </varDec>
+            <varDec>
+                <keyword>var</keyword>
+                <identifier>Array</identifier>
+                <identifierVar3Defined>a</identifierVar3Defined>
+                <symbol>;</symbol>
+            </varDec>
+            <statements>
+                <ifStatement>
+                    <keyword>if</keyword>
                     <symbol>(</symbol>
                     <expression>
                         <term>
-                            <identifierVar2Used>i</identifierVar2Used>
-                        </term>
-                        <symbol>&lt;</symbol>
-                        <term>
-                            <identifierVar1Used>length</identifierVar1Used>
+                            <keyword>false</keyword>
                         </term>
                     </expression>
                     <symbol>)</symbol>
@@ -105,103 +116,44 @@
                     <statements>
                         <letStatement>
                             <keyword>let</keyword>
-                            <identifierVar0Used>a</identifierVar0Used>
+                            <identifierVar2Used>s</identifierVar2Used>
+                            <symbol>=</symbol>
+                            <expression>
+                                <term>
+                                    <stringConstant>string constant</stringConstant>
+                                </term>
+                            </expression>
+                            <symbol>;</symbol>
+                        </letStatement>
+                        <letStatement>
+                            <keyword>let</keyword>
+                            <identifierVar2Used>s</identifierVar2Used>
+                            <symbol>=</symbol>
+                            <expression>
+                                <term>
+                                    <keyword>null</keyword>
+                                </term>
+                            </expression>
+                            <symbol>;</symbol>
+                        </letStatement>
+                        <letStatement>
+                            <keyword>let</keyword>
+                            <identifierVar3Used>a</identifierVar3Used>
                             <symbol>[</symbol>
                             <expression>
                                 <term>
-                                    <identifierVar2Used>i</identifierVar2Used>
+                                    <integerConstant>1</integerConstant>
                                 </term>
                             </expression>
                             <symbol>]</symbol>
                             <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <identifierClassUsed>Keyboard</identifierClassUsed>
-                                    <symbol>.</symbol>
-                                    <identifierSubroutineUsed>readInt</identifierSubroutineUsed>
-                                    <symbol>(</symbol>
-                                    <expressionList>
-                                        <expression>
-                                            <term>
-                                                <stringConstant>ENTER THE NEXT NUMBER: </stringConstant>
-                                            </term>
-                                        </expression>
-                                    </expressionList>
-                                    <symbol>)</symbol>
-                                </term>
-                            </expression>
-                            <symbol>;</symbol>
-                        </letStatement>
-                        <letStatement>
-                            <keyword>let</keyword>
-                            <identifierVar2Used>i</identifierVar2Used>
-                            <symbol>=</symbol>
-                            <expression>
-                                <term>
-                                    <identifierVar2Used>i</identifierVar2Used>
-                                </term>
-                                <symbol>+</symbol>
-                                <term>
-                                    <integerConstant>1</integerConstant>
-                                </term>
-                            </expression>
-                            <symbol>;</symbol>
-                        </letStatement>
-                    </statements>
-                    <symbol>}</symbol>
-                </whileStatement>
-                <letStatement>
-                    <keyword>let</keyword>
-                    <identifierVar2Used>i</identifierVar2Used>
-                    <symbol>=</symbol>
-                    <expression>
-                        <term>
-                            <integerConstant>0</integerConstant>
-                        </term>
-                    </expression>
-                    <symbol>;</symbol>
-                </letStatement>
-                <letStatement>
-                    <keyword>let</keyword>
-                    <identifierVar3Used>sum</identifierVar3Used>
-                    <symbol>=</symbol>
-                    <expression>
-                        <term>
-                            <integerConstant>0</integerConstant>
-                        </term>
-                    </expression>
-                    <symbol>;</symbol>
-                </letStatement>
-                <whileStatement>
-                    <keyword>while</keyword>
-                    <symbol>(</symbol>
-                    <expression>
-                        <term>
-                            <identifierVar2Used>i</identifierVar2Used>
-                        </term>
-                        <symbol>&lt;</symbol>
-                        <term>
-                            <identifierVar1Used>length</identifierVar1Used>
-                        </term>
-                    </expression>
-                    <symbol>)</symbol>
-                    <symbol>{</symbol>
-                    <statements>
-                        <letStatement>
-                            <keyword>let</keyword>
-                            <identifierVar3Used>sum</identifierVar3Used>
-                            <symbol>=</symbol>
-                            <expression>
-                                <term>
-                                    <identifierVar3Used>sum</identifierVar3Used>
-                                </term>
-                                <symbol>+</symbol>
-                                <term>
-                                    <identifierVar0Used>a</identifierVar0Used>
+                                    <identifierVar3Used>a</identifierVar3Used>
                                     <symbol>[</symbol>
                                     <expression>
                                         <term>
-                                            <identifierVar2Used>i</identifierVar2Used>
+                                            <integerConstant>2</integerConstant>
                                         </term>
                                     </expression>
                                     <symbol>]</symbol>
@@ -209,71 +161,77 @@
                             </expression>
                             <symbol>;</symbol>
                         </letStatement>
+                    </statements>
+                    <symbol>}</symbol>
+                    <keyword>else</keyword>
+                    <symbol>{</symbol>
+                    <statements>
                         <letStatement>
                             <keyword>let</keyword>
-                            <identifierVar2Used>i</identifierVar2Used>
+                            <identifierVar0Used>i</identifierVar0Used>
                             <symbol>=</symbol>
                             <expression>
                                 <term>
-                                    <identifierVar2Used>i</identifierVar2Used>
+                                    <identifierVar0Used>i</identifierVar0Used>
                                 </term>
-                                <symbol>+</symbol>
+                                <symbol>*</symbol>
                                 <term>
-                                    <integerConstant>1</integerConstant>
+                                    <symbol>(</symbol>
+                                    <expression>
+                                        <term>
+                                            <symbol>-</symbol>
+                                            <term>
+                                                <identifierVar1Used>j</identifierVar1Used>
+                                            </term>
+                                        </term>
+                                    </expression>
+                                    <symbol>)</symbol>
+                                </term>
+                            </expression>
+                            <symbol>;</symbol>
+                        </letStatement>
+                        <letStatement>
+                            <keyword>let</keyword>
+                            <identifierVar1Used>j</identifierVar1Used>
+                            <symbol>=</symbol>
+                            <expression>
+                                <term>
+                                    <identifierVar1Used>j</identifierVar1Used>
+                                </term>
+                                <symbol>/</symbol>
+                                <term>
+                                    <symbol>(</symbol>
+                                    <expression>
+                                        <term>
+                                            <symbol>-</symbol>
+                                            <term>
+                                                <integerConstant>2</integerConstant>
+                                            </term>
+                                        </term>
+                                    </expression>
+                                    <symbol>)</symbol>
+                                </term>
+                            </expression>
+                            <symbol>;</symbol>
+                        </letStatement>
+                        <letStatement>
+                            <keyword>let</keyword>
+                            <identifierVar0Used>i</identifierVar0Used>
+                            <symbol>=</symbol>
+                            <expression>
+                                <term>
+                                    <identifierVar0Used>i</identifierVar0Used>
+                                </term>
+                                <symbol>|</symbol>
+                                <term>
+                                    <identifierVar1Used>j</identifierVar1Used>
                                 </term>
                             </expression>
                             <symbol>;</symbol>
                         </letStatement>
                     </statements>
                     <symbol>}</symbol>
-                </whileStatement>
-                <doStatement>
-                    <keyword>do</keyword>
-                    <identifierClassUsed>Output</identifierClassUsed>
-                    <symbol>.</symbol>
-                    <identifierSubroutineUsed>printString</identifierSubroutineUsed>
-                    <symbol>(</symbol>
-                    <expressionList>
-                        <expression>
-                            <term>
-                                <stringConstant>THE AVERAGE IS: </stringConstant>
-                            </term>
-                        </expression>
-                    </expressionList>
-                    <symbol>)</symbol>
-                    <symbol>;</symbol>
-                </doStatement>
-                <doStatement>
-                    <keyword>do</keyword>
-                    <identifierClassUsed>Output</identifierClassUsed>
-                    <symbol>.</symbol>
-                    <identifierSubroutineUsed>printInt</identifierSubroutineUsed>
-                    <symbol>(</symbol>
-                    <expressionList>
-                        <expression>
-                            <term>
-                                <identifierVar3Used>sum</identifierVar3Used>
-                            </term>
-                            <symbol>/</symbol>
-                            <term>
-                                <identifierVar1Used>length</identifierVar1Used>
-                            </term>
-                        </expression>
-                    </expressionList>
-                    <symbol>)</symbol>
-                    <symbol>;</symbol>
-                </doStatement>
-                <doStatement>
-                    <keyword>do</keyword>
-                    <identifierClassUsed>Output</identifierClassUsed>
-                    <symbol>.</symbol>
-                    <identifierSubroutineUsed>println</identifierSubroutineUsed>
-                    <symbol>(</symbol>
-                    <expressionList>
-                    </expressionList>
-                    <symbol>)</symbol>
-                    <symbol>;</symbol>
-                </doStatement>
+                </ifStatement>
                 <returnStatement>
                     <keyword>return</keyword>
                     <symbol>;</symbol>
